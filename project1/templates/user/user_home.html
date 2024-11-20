@@ -18,9 +18,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Home</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="addproduct">Addproduct</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link " href="logout">Logout</a>
             </li>
@@ -31,19 +31,19 @@
 <div class="container mt-3">
   <div class="row">
     {% for pro in products %}
-    
+    <div class="col-lg-4">
+      <a href="">
         
     <div class="card" style="width:400px">
           <img class="card-img-top" src="{{pro.img.url}}" alt="Card image" style="width:100%">
           <div class="card-body">
             <h4 class="card-title">{{pro.name}}</h4>
             <p class="card-text">{{pro.dis}}</p>
-            <a href="edit product/{{pro.pk}}" class="btn btn-primary">Edit</a>
-            <a href="delete product/{{pro.pk}}" class="btn-primary">Delete</a>
-          </div>
+            
       </div>
         {% endfor %}
  </div>
+    </a>
 </div>
       
 </body>

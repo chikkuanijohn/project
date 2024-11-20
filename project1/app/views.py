@@ -3,24 +3,35 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .models import *
 import os
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 def project1_login(req):
     if 'shop' in req.session:
         return redirect(shop_home)
+    if 'user' in req.session:
+        return redirect(user_home)
     if req.method == 'POST':
         uname = req.POST['uname']
         password = req.POST['password']
         data = authenticate(username=uname, password=password)
         if data:
             login(req, data)
-            req.session['shop'] = uname  
-            return redirect(shop_home)
+            if data.is_superuser:
+               req.session['shop'] = uname      
+               return redirect(shop_home)
+            else:
+                req.session['user']=uname
+                return redirect(shop_home)
+        
+        
+
         else:
             messages.warning(req, 'Invalid username or password')
             return redirect(project1_login)
     else:
-        return render(req, 'login.html')
+       return render(req, 'login.html')
 
 
 def project1_shop_logout(req):
@@ -88,3 +99,31 @@ def delete_product(req,pid):
     os.remove('media/'+file)
     data.delete()
     return redirect(shop_home)
+
+#-------------------------user----------------------------
+def register(req):
+    if req.method== 'POST':
+        uname=req.POST['uname']
+        email=req.POST['email']
+        pswd=req.POST['pswd']
+        try:
+            data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
+            data.save()
+        except:
+            messages.warning(req,"email already in use")
+            return redirect(register)
+        
+        return redirect(project1_login)
+    else:
+        return render(req,'user/register.html')
+    
+def user_home(req):
+    if 'user' in req.session:
+        data=Product.objects.all()
+        return render(req,'user/home.html')
+    else:
+        return redirect (project1_login)
+    
+
+        
+            
