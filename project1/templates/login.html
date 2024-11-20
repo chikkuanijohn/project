@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo_pro login</title>
+  <title>Demo_pro Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-success">
+<body class="bg-secondary">
   <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="col-md-4">
       <h3 class="text-center mb-4 text-dark">LOGIN</h3>
@@ -14,7 +14,7 @@
       <form action="" method="post">
         {% csrf_token %}
         <div class="mb-3">
-          <label for="uname" class="form-label text-light"><b>Enter Username</b></label>
+          <label for="uname" class="form-label text-light"><b>Enter email</b></label>
           <input type="text" class="form-control" id="uname" placeholder="Enter your username" name="uname">
         </div>
         
@@ -23,29 +23,20 @@
           <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
         </div>
         
-        <button type="submit" class="btn btn-primary w-100">Login</button>
-<!-- {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}  -->
+        <button type="submit" class="btn w-100" style="background-color: #fdfd96; color: black;">Login</button>
 
-
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-success alert-dismissible">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  {{ message }}
-</div>
-{% endfor %}
-{% endif %}
-
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible mt-3">
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
       </form>
 
       <div class="text-center mt-3">
-        <a href="./register.html" class="text-decoration-none text-light">Register Now</a>
+        <a href="register" class="btn text-decoration-none w-100" style="background-color: #fdfd96; color: black;">Register Now</a>
       </div>
     </div>
   </div>

@@ -100,9 +100,10 @@ def delete_product(req,pid):
     data.delete()
     return redirect(shop_home)
 
+
 #-------------------------user----------------------------
 def register(req):
-    if req.method== 'POST':
+    if req.method=='POST':
         uname=req.POST['uname']
         email=req.POST['email']
         pswd=req.POST['pswd']
@@ -110,20 +111,29 @@ def register(req):
             data=User.objects.create_user(first_name=uname,email=email,username=email,password=pswd)
             data.save()
         except:
-            messages.warning(req,"email already in use")
-            return redirect(register)
-        
-        return redirect(project1_login)
+            messages.warning(req,'invalid username or password')
+            return redirect(register)   
+        return redirect(project1_login) 
     else:
-        return render(req,'user/register.html')
+        return render(req,'user/register.html')    
     
 def user_home(req):
     if 'user' in req.session:
         data=Product.objects.all()
-        return render(req,'user/home.html')
+        return render(req,'user/user_home.html',{'Products':data})
     else:
-        return redirect (project1_login)
-    
+        return redirect(project1_login)
 
+def pro_dtl(req,pid):
+    if 'user' in req.session:
+        try:
+            data=Product.objects.get(pk=pid)
+        except:
+            messages.warning(req,'sorry the details are not avaliable')
+            return redirect(pro_dtl)  
+         
+        return render(req,'user/product_dtl.html',{'Products':data})
+    else:
+        return redirect(user_home)
         
             
