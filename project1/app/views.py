@@ -154,4 +154,10 @@ def add_to_cart(req,pid):
     return redirect(view_cart)
 
 def view_cart(req):
-    return render(req,'user/cart.html')          
+    return render(req,'user/cart.html')   
+
+def about(req):
+    return render(req,'user/about.html')       
+
+def booking(req):
+    return render(req,'user/booking.html')
