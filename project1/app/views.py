@@ -135,5 +135,23 @@ def pro_dtl(req,pid):
         return render(req,'user/product_dtl.html',{'Products':data})
     else:
         return redirect(user_home)
-        
-            
+def user_home(req):
+    if 'user' in req.session:
+        data=Product.objects.all()
+        return render(req,'user/user_home.html',{'products':data})
+    else:
+        return redirect(project1_login)
+    
+def view_product(req,pid):
+        data = Product.objects.get(pk=pid)
+        return render(req,'user/view_product.html',{'product':data})
+           
+def add_to_cart(req,pid):
+    product=Product.objects.get(pk=pid)
+    user=User.objects.get(username=req.session['user'])
+    data=Cart.objects.create(product=product,user=user,qty=1)
+    data.save()
+    return redirect(view_cart)
+
+def view_cart(req):
+    return render(req,'user/cart.html')          
