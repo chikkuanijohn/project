@@ -17,8 +17,9 @@ urlpatterns=[
     path('view_cart',views.view_cart),
     path('qty_in/<cid>',views.qty_in),
     path('qty_dec/<cid>',views.qty_dec),
-    path('about',views.about),
+    path('cart_pro_buy/<cid>',views.cart_pro_buy),
     path('booking',views.booking),
+    path('pro_buy/<pid>',views.pro_buy),
     
 ]
   

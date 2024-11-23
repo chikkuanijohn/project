@@ -180,8 +180,29 @@ def qty_dec(req,cid):
     return redirect(view_cart)
 
 
+def cart_pro_buy(req,cid):
+    cart=Cart.objects.get(pk=cid)
+    product=cart.product
+    user=cart.user
+    qty=cart.qty
+    price=product.offer_price*qty
+    buy=Buy.objects.create(product=product,user=user,qty=qty,price=price)
+    buy.save()
+    return redirect(booking)
+
+def pro_buy(req,pid):
+    product=Product.objects.get(pk=pid)
+    user=User.objects.get(username=req.session['user'])
+    qty=1
+    price=product.offer_price
+    buy=Buy.objects.create(product=product,user=user,qty=qty,price=price)
+    buy.save()
+    return redirect(booking)
+
 def about(req):
     return render(req,'user/about.html')       
 
 def booking(req):
-    return render(req,'user/booking.html')
+    user=User.objetcs.get(username=req.session['user'])
+    buy=Buy.objects.filter(user=user)[::-1]
+    return render(req,'user/booking.html',{'booking':buy})
