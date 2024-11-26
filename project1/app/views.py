@@ -206,3 +206,7 @@ def booking(req):
     user=User.objetcs.get(username=req.session['user'])
     buy=Buy.objects.filter(user=user)[::-1]
     return render(req,'user/booking.html',{'booking':buy})
+
+def view_bookings(req):
+    buy=Buy.objects.all()[::-1]
+    return render(req,'shop/view_bookings.html',{'view_bookings':buy})
